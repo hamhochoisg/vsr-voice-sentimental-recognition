@@ -4,6 +4,10 @@ According to WHO, about 5% of people worldwide suffer from mental health disease
 
 ![image](https://user-images.githubusercontent.com/88182498/138410971-a0560bf0-2e2d-41f5-87b1-399ce4a21942.png)
 
+## ROADMAP
+![image](https://user-images.githubusercontent.com/88182498/138417771-e1e90310-1c4a-45e2-80f5-3e70856f4fc6.png)
+
+
 ## METHODOLOGY
 ![image](https://user-images.githubusercontent.com/88182498/138412436-ecf35440-65c3-4778-914d-5c2ae1a6549d.png)
 
@@ -30,11 +34,93 @@ After researching similar solutions on Kaggle, I want to test using Machine Lear
 
 However, I also test with extract features methodology with lower rating. In near future, I will continue to test more this method. 
 
-## MACHINE LEARNING MODEL
-After build my own model to test and have not good score (lower thang 60% accuracy). I decied to use tranfer learning to inherited 
+## MACHINE LEARNING SOLUTION
 
-test 
+To solve this problem, the machine learning approach is learning from a large amount of emotionally classified data to learn and find the right features. Then model will base on this knowledge to predict user's spectrograms. The model will needs more user data to be able to understand the user correctly. Personalization is definitely needed as user-side recordings use very different equipment from the lab.
+
+### DATASET FOR MODEL
+
+Most of the data below was created in a lab, professional actors were asked to say a few neutral sentences with differences emotions.
+
+1. Crowd Sourced Emotional Multimodal Actors Dataset (CREMA-D) 
++ 7,442 audio data
++ 91 actors (20-74 years old), various ethnicities
++ 06 emotions
+
+2. Toronto emotional speech set (TESS)
++ 2800 audio data
++ 02 actors (26 and 64 years old)
++ 08 feelings
+
+3. Surrey Audio-Visual Expressed Emotion (SAVEE)
++ 1012 audio data
++ 4 actors (27-31 years old)
++ 07 emotions
+
+4. Ryerson Audio-Visual Database of Emotional Speech and Song (RAVDESS)
++ 1440 audio data
++ 24 actors (12 female, 12 male)
++ 07 emotions
+
+![image](https://user-images.githubusercontent.com/88182498/138420600-aebc8ad0-c470-4193-87ca-2e75dbb8dc88.png)
+
+Source and license: https://www.kaggle.com/shivamburnwal/speech-emotion-recognition/data
+### MODELING AND TRAINNING
+After build my own model to test and do not have good scores (lower than 60% accuracy). I decied to use tranfer learning to inherit model architechture and weights. I uses Densenet Model which includes 4 Dense block and a classification Layer. I also benchmark with other models: Resnet50, Xception and result for Densenet201 is better with validation lost: 0.96666
+
+![image](https://user-images.githubusercontent.com/88182498/138421212-a7a8ddd0-bbcf-4288-9015-d92753efebd1.png)
+
+#### Why Dense Net
+![image](https://user-images.githubusercontent.com/88182498/138420786-79dc1c16-c2dd-4ecd-b3c3-a93f251e8b3e.png)
+I use this model beause it get all the previous layers as input so it's very diverse in features so it maintaining features is not complicated and it is very suitable for a data problem with little difference like this case. Besides, this model has been pretrained with imagenet competition with top 5 accuracy = 0.936 
+
+For detail about DenseNet model you can read this article: [Towardsdatascience.com & Cornell University](https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803)
+
+### TRANSFER LEARNING
+The purpose of this application is to analyze only 2 class of emotions: negative and positive. Negative includes emotions such as anger, fear, disgust and positive emotions include neutral, happy, calm, pleasant surprise.
+
+Therefore, the Densenet201 model is removed the classification class and replaced by the GlobalAveragePooling2D class and the Binary Classifier (Positive & Negative) class. The model weights are also retained to utilize the knowledge trained on imagenet.
+
+Model is opened and train 7 more classes with trainable parameter: 774,914
+
+This is the summary of model structure before and after tunning: 
+![image](https://user-images.githubusercontent.com/88182498/138422401-6d5a9884-22e1-4a6a-b5cb-0787f022a044.png)
+
+This is the result of model trainning:
+![image](https://user-images.githubusercontent.com/88182498/138424061-b86e8771-dac4-42e1-95d7-b7f584fc9ec7.png)
+
+## APP SCREENSHOT
+I use streamlit to present my app and this is some screenshot:
+
+### Predict Mode
+First user will need to record their voice, they can say anything or read the sample text:
+![image](https://user-images.githubusercontent.com/88182498/138424712-bc5fa98e-dcdb-4a0a-ad60-6c37099bf5a0.png)
+
+Then system save the audio and plot the sound wave:
+![image](https://user-images.githubusercontent.com/88182498/138424872-632ce3cd-4600-48ca-b8ba-fb7130bf2932.png)
+
+Then a list of spectrogram (4s per image) is created to predict user voice emotion:
+![image](https://user-images.githubusercontent.com/88182498/138425151-fdf54951-1a1b-47d8-853e-db1e4b412001.png)
+
+### Trainning Mode
+For the trainning mode, user will able to record, save file and preview their spectrograme files. We cannot train userdata on their devices so now I just collect user data and train form another machine. In future plan, I will try to connect clound server so user and send data and make a trainning request.
+
+![image](https://user-images.githubusercontent.com/88182498/138425648-6bd2012c-9420-47ee-bb9d-65fff9ce5518.png)
+
+User data
+![image](https://user-images.githubusercontent.com/88182498/138425835-597a742e-ebdc-49c1-9563-e61222d0b04c.png)
+
+### Why Personalize Importance
+The microphone of user devices are very difference with lab environment so it very hard for model to predict. With user data combine with model data will be the best practices for this soluton.
+
+Besides, I do believe that only users understand themselves best
 
 ## FUTURE PLAN
+* Combined face recognition (MediaPie)
+* Incorporating language processing (NLP)
+* Store mental health history and report
+* Solve the problem of connecting to the cloud server to personalize the model
+* Build health improvement solutions based on condition
 
 ## FILE EXPLORER
+updating...
