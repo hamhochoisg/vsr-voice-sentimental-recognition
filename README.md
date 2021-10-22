@@ -4,7 +4,11 @@ According to WHO, about 5% of people worldwide suffer from mental health disease
 
 ![image](https://user-images.githubusercontent.com/88182498/138410971-a0560bf0-2e2d-41f5-87b1-399ce4a21942.png)
 
-## ROADMAP
+## APP MILE STONE
+VSR have three main fuctions: 
+* Predict User Voice Emotion 
+* Personalize with User Data
+* Recommendation to improve mental health 
 ![image](https://user-images.githubusercontent.com/88182498/138417771-e1e90310-1c4a-45e2-80f5-3e70856f4fc6.png)
 
 
