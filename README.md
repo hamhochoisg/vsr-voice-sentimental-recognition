@@ -128,3 +128,8 @@ Besides, I do believe that only users understand themselves best
 
 ## FILE EXPLORER
 updating...
+
+# REFERENCE
+* [Speech Emotion Recognition by SHIVAM BURNWAL] (https://www.kaggle.com/shivamburnwal/speech-emotion-recognition/data)
+* [DenseNet Model Review by Sik-Ho Tsang](https://towardsdatascience.com/review-densenet-image-classification-b6631a8ef803)
+
